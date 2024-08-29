@@ -1,0 +1,6 @@
+@Spotilike_HostAddress = http://localhost:5142
+
+GET {{Spotilike_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

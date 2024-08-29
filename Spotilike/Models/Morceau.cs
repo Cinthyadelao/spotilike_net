@@ -1,0 +1,15 @@
+﻿namespace Spotilike.Models
+{
+    public class Morceau
+    {
+        public int Id { get; set; }
+        public string Titre { get; set; }
+        public string Duree { get; set; }
+
+        public int AlbumId { get; set; }
+        public Album Album { get; set; }
+
+        public int GenreId { get; set; }
+        public Genre Genre { get; set; }
+    }
+}

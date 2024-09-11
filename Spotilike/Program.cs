@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configuration de la base de données
+// Configuration de la base de donnÃ©es
 builder.Services.AddDbContext<SpotilikeContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -47,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseHttpsRedirection();
 
 // Activer l'authentification
@@ -58,4 +60,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

@@ -7,9 +7,10 @@
         public string Description { get; set; }
         public string DateSortie { get; set; }
 
-        public int ArtisteId { get; set; }
-        public Artiste Artiste { get; set; }
+        public int? ArtisteId { get; set; }
+        public Artiste? Artiste { get; set; } // Relation optionnelle
 
-        public ICollection<Morceau> Morceaux { get; set; }
+        public ICollection<Morceau>? Morceaux { get; set; } // Relation optionnelle
     }
+
 }

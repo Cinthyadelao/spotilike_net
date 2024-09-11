@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spotilike;
@@ -22,13 +21,15 @@ namespace Spotilike.Controllers
         }
 
         // GET: api/Albums
+        // Accessible à tout le monde
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Album>>> GetAlbums()
         {
             return await _context.Albums.ToListAsync();
         }
 
-        // GET: api/Albums/5
+        // GET: api/Albums/1
+        // Accessible à tout le monde
         [HttpGet("{id}")]
         public async Task<ActionResult<Album>> GetAlbum(int id)
         {
@@ -42,8 +43,9 @@ namespace Spotilike.Controllers
             return album;
         }
 
-        // PUT: api/Albums/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Albums/1
+        // Accessible uniquement à l'Admin
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAlbum(int id, Album album)
         {
@@ -74,7 +76,8 @@ namespace Spotilike.Controllers
         }
 
         // POST: api/Albums
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // Accessible uniquement à l'Admin
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Album>> PostAlbum(Album album)
         {
@@ -84,7 +87,9 @@ namespace Spotilike.Controllers
             return CreatedAtAction("GetAlbum", new { id = album.Id }, album);
         }
 
-        // DELETE: api/Albums/5
+        // DELETE: api/Albums/1
+        // Accessible uniquement à l'Admin
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlbum(int id)
         {

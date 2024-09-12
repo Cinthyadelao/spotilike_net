@@ -22,6 +22,19 @@ builder.Services.AddDbContext<SpotilikeContext>(options =>
     )
 );
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:4200")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials();
+                      });
+});
+
+
 // Configuration de l'authentification JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -50,7 +63,17 @@ if (app.Environment.IsDevelopment())
 }
 
 // Utiliser CORS
+app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
+app.Use((context, next) =>
+{
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.StatusCode = 200;
+        return Task.CompletedTask;
+    }
+    return next();
+});
 
 app.UseHttpsRedirection();
 

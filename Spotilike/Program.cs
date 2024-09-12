@@ -6,6 +6,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -47,6 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Utiliser CORS
 app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();

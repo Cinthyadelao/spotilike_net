@@ -7,6 +7,7 @@
         public string Avatar { get; set; }
         public string Biographie { get; set; }
 
-        public ICollection<Album> Albums { get; set; }
+        // Rendre la propriété Albums optionnelle
+        public ICollection<Album>? Albums { get; set; }
     }
 }

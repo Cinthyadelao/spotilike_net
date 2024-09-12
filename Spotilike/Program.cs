@@ -1,25 +1,10 @@
 using Spotilike;
 using Microsoft.EntityFrameworkCore;
-
-
-
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:4200") // URL del frontend Angular
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
-});
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -27,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configuration de la base de donn�es
+// Configuration de la base de données
 builder.Services.AddDbContext<SpotilikeContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -75,4 +60,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
